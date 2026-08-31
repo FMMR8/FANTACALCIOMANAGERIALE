@@ -1,0 +1,385 @@
+/* ============================================================
+   FANTACALCIO MANAGERIALE — identità visiva
+   Palette: blu notte profondo, bianco gesso, ambra (cartellino/trofeo)
+   Type: Oswald (titoli, stile tabellone da stadio) + Inter (corpo) + JetBrains Mono (cifre)
+   ============================================================ */
+
+:root {
+  --blu-scuro: #0A1929;
+  --blu-campo: #14315C;
+  --blu-medio: #2E6DA4;
+  --gesso: #F7FAF7;
+  --gesso-ombra: #E4ECE6;
+  --ambra: #E8A33D;
+  --ambra-scuro: #C97F1E;
+  --rosso-cartellino: #C1272D;
+  --ok: #3A8A5E;
+
+  --font-display: 'Oswald', sans-serif;
+  --font-corpo: 'Inter', sans-serif;
+  --font-cifre: 'JetBrains Mono', monospace;
+
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-corpo);
+  background: var(--blu-scuro);
+  color: var(--gesso);
+  min-height: 100vh;
+}
+
+.schermata { min-height: 100vh; }
+.schermata[hidden] { display: none; }
+
+/* --- Schermata di accesso --- */
+#schermata-accesso {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 0%, var(--blu-medio) 0%, var(--blu-scuro) 65%);
+  padding: 24px;
+}
+
+.card-accesso {
+  width: 100%;
+  max-width: 360px;
+  background: var(--blu-campo);
+  border: 1px solid rgba(247, 250, 247, 0.12);
+  border-radius: var(--radius);
+  padding: 40px 28px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.stemma { font-size: 40px; margin-bottom: 8px; }
+
+.card-accesso h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 1px;
+  line-height: 1.15;
+  margin: 0 0 4px;
+}
+
+.sottotitolo {
+  color: var(--gesso-ombra);
+  font-size: 14px;
+  margin: 0 0 24px;
+}
+
+input[type="text"], input[type="password"], input[type="number"], select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(247, 250, 247, 0.2);
+  background: rgba(247, 250, 247, 0.06);
+  color: var(--gesso);
+  font-family: var(--font-corpo);
+  font-size: 15px;
+}
+input::placeholder { color: rgba(247, 250, 247, 0.45); }
+input:focus, select:focus {
+  outline: 2px solid var(--ambra);
+  outline-offset: 1px;
+}
+/* Il menu a tendina che si apre (le "option") su alcuni browser ignora lo sfondo scuro del
+   genitore e resta bianco: lo forzo esplicitamente perché il testo resti sempre leggibile. */
+select option {
+  background: var(--blu-campo);
+  color: var(--gesso);
+}
+
+.btn-primario, .btn-secondario {
+  width: 100%;
+  padding: 13px;
+  border-radius: 8px;
+  border: none;
+  font-family: var(--font-corpo);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+.btn-primario {
+  background: var(--ambra);
+  color: var(--blu-scuro);
+}
+.btn-primario:hover { background: var(--ambra-scuro); }
+.btn-secondario {
+  background: transparent;
+  color: var(--gesso);
+  border: 1px solid rgba(247, 250, 247, 0.3);
+  margin-top: 10px;
+}
+.btn-secondario:hover { background: rgba(247, 250, 247, 0.08); }
+
+.errore {
+  color: #F5A3A3;
+  font-size: 13px;
+  margin: 10px 0 0;
+}
+
+/* --- Intestazione squadra / lega --- */
+.intestazione {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: var(--blu-campo);
+  border-bottom: 2px solid var(--ambra);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 11px;
+  color: var(--ambra);
+  margin: 0 0 2px;
+  font-weight: 600;
+}
+.intestazione h2 {
+  font-family: var(--font-display);
+  margin: 0;
+  font-size: 22px;
+}
+.azioni-intestazione { display: flex; gap: 8px; }
+.azioni-intestazione .btn-secondario { width: auto; margin-top: 0; padding: 8px 14px; font-size: 13px; }
+
+/* --- Tab navigation --- */
+.tab-nav {
+  display: flex;
+  overflow-x: auto;
+  background: var(--blu-scuro);
+  border-bottom: 1px solid rgba(247, 250, 247, 0.1);
+}
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--gesso-ombra);
+  font-family: var(--font-corpo);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 14px 18px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+.tab-btn.attivo {
+  color: var(--ambra);
+  border-bottom-color: var(--ambra);
+}
+
+main { padding: 20px; max-width: 900px; margin: 0 auto; width: 100%; }
+
+/* --- Blocchi generici --- */
+.sezione {
+  background: var(--blu-campo);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.scheda-prestito {
+  background: rgba(247, 250, 247, 0.04);
+  border: 1px solid rgba(247, 250, 247, 0.12);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.sezione h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  margin: 0 0 14px;
+  color: var(--ambra);
+  text-transform: uppercase;
+}
+.campo { margin-bottom: 14px; }
+.campo label {
+  display: block;
+  font-size: 13px;
+  color: var(--gesso-ombra);
+  margin-bottom: 5px;
+}
+.griglia-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.griglia-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 560px) {
+  .griglia-2, .griglia-3 { grid-template-columns: 1fr; }
+}
+
+/* --- Scoreboard (Capitale Provvisorio) --- */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.scoreboard-cella {
+  background: var(--blu-scuro);
+  border: 1px solid rgba(232, 163, 61, 0.3);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+}
+.scoreboard-cella .etichetta {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gesso-ombra);
+  margin-bottom: 6px;
+}
+.scoreboard-cella .valore {
+  font-family: var(--font-cifre);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--ambra);
+}
+.scoreboard-cella .valore.positivo { color: var(--ok); }
+.scoreboard-cella .valore.negativo { color: var(--rosso-cartellino); }
+
+/* --- Tabella rosa --- */
+table.tabella-rosa {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+table.tabella-rosa th {
+  background: var(--blu-scuro);
+  color: var(--ambra);
+  text-align: left;
+  padding: 8px 6px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+table.tabella-rosa td {
+  padding: 6px;
+  border-bottom: 1px solid rgba(247, 250, 247, 0.08);
+}
+table.tabella-rosa input, table.tabella-rosa select {
+  margin: 0;
+  padding: 6px 8px;
+  font-size: 13px;
+  width: 100%;
+  min-width: 60px;
+}
+.cifra { font-family: var(--font-cifre); text-align: right; }
+.tabella-scroll { overflow-x: auto; max-width: 100%; }
+
+.riga-check-ok { color: var(--ok); font-weight: 600; }
+tr.riga-in-prestito-uscita td { color: var(--rosso-cartellino) !important; }
+tr.riga-in-prestito-entrata td { color: var(--ok) !important; }
+.riga-check-warn { color: var(--rosso-cartellino); font-weight: 600; }
+
+/* --- Checkbox bonus sponsor --- */
+.riga-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 14px;
+}
+.riga-check input[type="checkbox"] { width: auto; margin: 0; }
+
+/* --- Lega: cards squadre --- */
+.griglia-lega {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+.card-squadra {
+  background: var(--blu-campo);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.card-squadra h4 {
+  font-family: var(--font-display);
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+.card-squadra .riga-dato {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 3px 0;
+  color: var(--gesso-ombra);
+}
+.card-squadra .riga-dato b { color: var(--gesso); font-family: var(--font-cifre); }
+
+.btn-piccolo {
+  background: var(--ambra);
+  color: var(--blu-scuro);
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.btn-testo {
+  background: none;
+  border: none;
+  color: var(--ambra);
+  cursor: pointer;
+  font-size: 15px;
+  padding: 2px 6px;
+}
+.btn-testo:hover { color: var(--rosso-cartellino); }
+
+/* --- Storico a tendina (dentro Mercato/Prestiti) --- */
+.sezione details {
+  margin-top: 12px;
+  border-top: 1px solid rgba(247,250,247,0.1);
+  padding-top: 10px;
+}
+.sezione summary {
+  cursor: pointer;
+  color: var(--ambra);
+  font-size: 13px;
+  font-weight: 600;
+  list-style: none;
+}
+.sezione summary::-webkit-details-marker { display: none; }
+.sezione summary::before { content: "▶ "; font-size: 11px; }
+.sezione details[open] summary::before { content: "▼ "; }
+
+/* --- Pagina Istruzioni --- */
+.istr-sezione { margin-bottom: 4px; }
+.istr-titolo {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: var(--blu-scuro);
+  background: var(--ambra);
+  padding: 8px 14px;
+  border-radius: 6px 6px 0 0;
+  margin: 0;
+}
+.istr-corpo {
+  background: var(--blu-campo);
+  padding: 12px 14px 16px;
+  border-radius: 0 0 6px 6px;
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--gesso-ombra);
+}
+.istr-corpo b { color: var(--gesso); }
+.istr-tabella { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
+.istr-tabella th {
+  background: var(--blu-scuro); color: var(--ambra); padding: 6px 8px; text-align: center; font-weight: 600;
+}
+.istr-tabella td { padding: 5px 8px; text-align: center; border-bottom: 1px solid rgba(247,250,247,0.08); }
+.istr-tabella tr:nth-child(even) td { background: rgba(247,250,247,0.04); }
