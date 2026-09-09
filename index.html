@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fantacalcio Manageriale</title>
+
+<!-- App su schermo home (PWA): icona, nome, "schermo intero" senza barra del browser -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icona-32.png" sizes="32x32" type="image/png" />
+<link rel="icon" href="icona-192.png" sizes="192x192" type="image/png" />
+<link rel="apple-touch-icon" href="icona-180.png" />
+<meta name="theme-color" content="#121317" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Fantacalcio Manageriale" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600;1,700&family=Cinzel:wght@600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- SCHERMATA SCEGLI LEGA (punto di ingresso) -->
+<section id="schermata-scegli-lega" class="schermata">
+  <div class="pagina-con-wordmark">
+    <h1 class="wordmark-fuori"><span class="wordmark-principale">Fantacalcio</span><span class="wordmark-secondaria">Manageriale</span></h1>
+    <div class="tris-ingresso">
+
+    <div class="pannello-info">
+      <h3 class="titolo-corsivo">Come funziona</h3>
+      <p>Un fantacalcio dove non gestisci solo la formazione, ma anche <b>il bilancio del club</b>!</p>
+      <p><b>Le partite si giocano altrove.</b> Campionato, Champions e coppa li organizzate su un'app di fantacalcio a scelta, usando le rose registrate qui. Finita la stagione, riportate qui i piazzamenti.</p>
+      <p><b>Compri la rosa all'asta</b> con un budget iniziale di 500. Servono 25 giocatori titolari (3 portieri, 8 difensori, 8 centrocampisti, 6 attaccanti) più gli extra che vuoi. Ogni giocatore ti costa uno stipendio ogni anno: più l'hai pagato, più pesa.</p>
+      <p><b>Guadagni</b> da sponsor, piazzamenti nelle tre competizioni e biglietti dello stadio — che rendono di più quante più partite vinci in casa.</p>
+      <p><b>Spendi e investi</b>: ingrandisci lo stadio, rinnovi i contratti in scadenza, tratti giocatori con le altre squadre, chiedi un prestito in banca.</p>
+      <p><b>A fine stagione</b> chiudi i conti: quello che resta in cassa diventa il budget dell'anno dopo. Se chiudi in rosso, la stagione successiva parti con una penalizzazione in classifica.</p>
+      <p class="nota">Il sito calcola tutto da solo e salva mentre scrivi: tu inserisci solo acquisti, partite in casa e piazzamenti.</p>
+    </div>
+
+    <div class="card-accesso">
+      <button id="btn-vai-crea-lega" class="btn-primario">Crea una lega nuova</button>
+      <button id="btn-vai-cerca-lega" class="btn-secondario" style="width:100%;margin-top:10px;padding:14px">Cerca una lega esistente</button>
+    </div>
+
+    <div class="pannello-info">
+      <h3 class="titolo-corsivo">Come iniziare</h3>
+      <ol class="passi">
+        <li><b>Uno di voi crea la lega.</b> Preme "Crea una lega nuova" e sceglie tre cose: il nome della lega, un PIN di 4 cifre che sarà la sua chiave da admin, e quante squadre parteciperanno (da 4 a 20, non si cambia dopo).</li>
+        <li><b>L'admin crea le squadre</b> subito dopo, una per partecipante: per ognuna inventa un nome e un PIN di 4 cifre. Se gioca anche lui, deve creare anche la propria.</li>
+        <li><b>Manda a ognuno il suo nome squadra e PIN.</b> Sono le credenziali per entrare, tenetele da parte.</li>
+        <li><b>Tutti entrano</b> da "Cerca una lega esistente", scrivendo il nome della lega, poi il proprio nome squadra e PIN.</li>
+        <li><b>Fate l'asta</b> come sempre, poi ognuno inserisce i propri acquisti in Gestione Rosa. Da lì si gioca.</li>
+      </ol>
+      <p class="nota"><b>Per rientrare come admin</b> più avanti: si entra nella lega come tutti gli altri, ma alla richiesta del nome squadra si scrive <b>ADMIN</b> e come PIN quello scelto al punto 1. Da lì si vedono i bilanci di tutte le squadre e si possono aggiungere o togliere squadre.</p>
+    </div>
+
+    </div>
+  </div>
+  <button id="btn-apri-supporto" class="btn-supporto">🆘 Supporto</button>
+</section>
+
+<!-- SCHERMATA SUPPORTO -->
+<section id="schermata-supporto" class="schermata" hidden>
+  <div class="card-accesso">
+    <div class="stemma">🆘</div>
+    <h1>Supporto</h1>
+    <p class="sottotitolo">Scrivi qui il problema — arriva subito a chi gestisce il sito.</p>
+    <input id="supp-nome" type="text" placeholder="Il tuo nome (o nome squadra)" autocomplete="off" />
+    <input id="supp-contatto" type="text" placeholder="Email, telefono o come vuoi essere ricontattato" autocomplete="off" style="margin-top:10px" />
+    <textarea id="supp-messaggio" placeholder="Descrivi il problema..." rows="5" style="width:100%;box-sizing:border-box;padding:12px;border-radius:8px;border:none;font-family:var(--font-corpo);font-size:15px;margin-top:10px;resize:vertical"></textarea>
+    <button id="btn-invia-supporto" class="btn-primario" style="margin-top:10px">Invia messaggio</button>
+    <p id="errore-supporto" class="errore" hidden></p>
+    <p id="successo-supporto" style="color:var(--ok);font-size:14px" hidden>Messaggio inviato, grazie — ti risponderanno appena possibile.</p>
+    <button id="btn-supporto-torna" class="btn-testo" style="margin-top:10px">← Torna indietro</button>
+  </div>
+</section>
+
+<!-- SCHERMATA CREA LEGA -->
+<section id="schermata-crea-lega" class="schermata" hidden>
+  <div class="pagina-con-wordmark">
+    <h1 class="wordmark-fuori"><span class="wordmark-principale">Fantacalcio</span><span class="wordmark-secondaria">Manageriale</span></h1>
+    <div class="card-accesso">
+      <h2 style="margin:0 0 4px;font-family:var(--font-display);font-size:20px">Crea una lega</h2>
+      <p class="sottotitolo">Tu diventi l'admin di questa lega: crei e gestisci le squadre.</p>
+      <input id="cl-nome-lega" type="text" placeholder="Nome della lega" autocomplete="off" />
+      <input id="cl-pin-admin" type="password" placeholder="Il tuo PIN admin, 4 cifre" maxlength="4" inputmode="numeric" />
+      <div class="campo" style="text-align:left;margin-top:4px">
+        <label for="cl-numero-squadre">Quante squadre parteciperanno</label>
+        <select id="cl-numero-squadre"></select>
+        <p style="font-size:11px;color:var(--testo-soft);margin:6px 0 0">Premi e classifiche si adattano al numero scelto. Non si può cambiare dopo.</p>
+      </div>
+      <button id="btn-crea-lega" class="btn-primario">Crea lega</button>
+      <p id="errore-crea-lega" class="errore" hidden></p>
+      <button id="btn-crea-lega-torna" class="btn-testo" style="margin-top:10px">← Torna indietro</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCHERMATA CERCA LEGA -->
+<section id="schermata-cerca-lega" class="schermata" hidden>
+  <div class="pagina-con-wordmark">
+    <h1 class="wordmark-fuori"><span class="wordmark-principale">Fantacalcio</span><span class="wordmark-secondaria">Manageriale</span></h1>
+    <div class="card-accesso">
+      <h2 style="margin:0 0 4px;font-family:var(--font-display);font-size:20px">Cerca una lega</h2>
+      <p class="sottotitolo">Scrivi il nome esatto della lega a cui vuoi accedere.</p>
+      <input id="cerca-nome-lega" type="text" placeholder="Nome della lega" autocomplete="off" />
+      <button id="btn-cerca-lega" class="btn-primario">Cerca</button>
+      <p id="errore-cerca-lega" class="errore" hidden></p>
+      <button id="btn-cerca-lega-torna" class="btn-testo" style="margin-top:10px">← Torna indietro</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCHERMATA SUPER-ADMIN -->
+<section id="schermata-superadmin" class="schermata" hidden>
+  <header class="intestazione">
+    <div>
+      <p class="eyebrow">Super-admin</p>
+      <h2>Tutte le leghe</h2>
+    </div>
+    <button id="btn-superadmin-esci" class="btn-secondario">Esci</button>
+  </header>
+  <main id="contenuto-superadmin"></main>
+</section>
+
+<!-- SCHERMATA DI ACCESSO -->
+<section id="schermata-accesso" class="schermata" hidden>
+  <div class="pagina-con-wordmark">
+    <h1 class="wordmark-fuori"><span class="wordmark-principale">Fantacalcio</span><span class="wordmark-secondaria">Manageriale</span></h1>
+    <div class="card-accesso">
+      <p class="sottotitolo" id="accesso-nome-lega">Entra nella tua squadra</p>
+      <input id="input-nickname" type="text" placeholder="Nome squadra" autocomplete="off" />
+      <input id="input-pin" type="password" placeholder="PIN a 4 cifre" maxlength="4" inputmode="numeric" />
+      <button id="btn-entra" class="btn-primario">Entra</button>
+      <p id="errore-accesso" class="errore" hidden></p>
+      <button id="btn-accesso-torna" class="btn-testo" style="margin-top:10px">← Cambia lega</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCHERMATA SQUADRA -->
+<section id="schermata-squadra" class="schermata" hidden>
+  <header class="intestazione">
+    <div>
+      <p class="eyebrow">La mia squadra</p>
+      <h2 id="nome-squadra-titolo">—</h2>
+    </div>
+    <div class="azioni-intestazione">
+      <button id="btn-mercato" class="btn-secondario">🔄 Mercato<span id="badge-proposte" class="badge-notifica" hidden>0</span></button>
+      <button id="btn-notizie" class="btn-secondario">📰 Notizie</button>
+      <button id="btn-altre-squadre" class="btn-secondario">🏆 Albo d'oro</button>
+      <button id="btn-istruzioni" class="btn-secondario">📖 Istruzioni</button>
+      <button id="btn-esci" class="btn-secondario">Esci</button>
+    </div>
+  </header>
+
+  <nav class="tab-nav">
+    <button class="tab-btn attivo" data-tab="anagrafica">Anagrafica</button>
+    <button class="tab-btn" data-tab="stadio">Stadio</button>
+    <button class="tab-btn" data-tab="sponsor">Sponsor &amp; Premi</button>
+    <button class="tab-btn" data-tab="rosa">Rosa</button>
+    <button class="tab-btn" data-tab="gestione-rosa">Gestione Rosa</button>
+    <button class="tab-btn" data-tab="prestiti">Banca</button>
+    <button class="tab-btn" data-tab="bilancio">Conto Economico</button>
+  </nav>
+
+  <main id="contenuto-tab"></main>
+</section>
+
+<!-- SCHERMATA LEGA -->
+<section id="schermata-lega" class="schermata" hidden>
+  <header class="intestazione">
+    <div>
+      <p class="eyebrow">Registro di lega</p>
+      <h2>Tutte le squadre</h2>
+    </div>
+    <button id="btn-torna-squadra" class="btn-secondario">← Torna alla mia squadra</button>
+  </header>
+  <main id="contenuto-lega"></main>
+</section>
+
+<!-- SCHERMATA ADMIN -->
+<section id="schermata-admin" class="schermata" hidden>
+  <header class="intestazione">
+    <div>
+      <p class="eyebrow">Area ADMIN</p>
+      <h2>Gestione squadre</h2>
+    </div>
+    <button id="btn-admin-esci" class="btn-secondario">Esci</button>
+  </header>
+  <main id="contenuto-admin"></main>
+</section>
+
+<!-- SCHERMATA ISTRUZIONI -->
+<section id="schermata-istruzioni" class="schermata" hidden>
+  <header class="intestazione">
+    <div>
+      <p class="eyebrow">Guida</p>
+      <h2>Istruzioni</h2>
+    </div>
+    <button id="btn-istruzioni-torna" class="btn-secondario">← Torna alla mia squadra</button>
+  </header>
+  <main id="contenuto-istruzioni"></main>
+</section>
+
+<!-- SCHERMATA ALTRE SQUADRE -->
+<section id="schermata-altre-squadre" class="schermata" hidden>
+  <header class="intestazione">
+    <div>
+      <p class="eyebrow">Lega</p>
+      <h2>Albo d'oro</h2>
+    </div>
+    <button id="btn-altre-squadre-torna" class="btn-secondario">← Torna alla mia squadra</button>
+  </header>
+  <nav class="tab-nav">
+    <button class="atab-btn attivo" data-atab="titoli">🏆 Titoli</button>
+    <button class="atab-btn" data-atab="finanze">💰 Finanze</button>
+    <button class="atab-btn" data-atab="record">📈 Record trasferimenti</button>
+    <button class="atab-btn" data-atab="oscar">🏅 Oscar</button>
+  </nav>
+  <main id="contenuto-altre-squadre"></main>
+</section>
+
+<section id="schermata-notizie" class="schermata" hidden>
+  <header class="intestazione">
+    <div>
+      <p class="eyebrow">Lega</p>
+      <h2>Notizie</h2>
+    </div>
+    <button id="btn-notizie-torna" class="btn-secondario">← Torna alla mia squadra</button>
+  </header>
+  <nav class="tab-nav" id="filtri-notizie">
+    <button class="ntab-btn attivo" data-ncat="tutte">Tutte</button>
+    <button class="ntab-btn" data-ncat="mercato">🔄 Mercato</button>
+    <button class="ntab-btn" data-ncat="trofei">🏆 Trofei</button>
+    <button class="ntab-btn" data-ncat="stadio">🏟️ Stadio</button>
+    <button class="ntab-btn" data-ncat="economia">💰 Economia</button>
+    <button class="ntab-btn" data-ncat="record">📈 Record</button>
+  </nav>
+  <main id="contenuto-notizie"></main>
+</section>
+
+<section id="schermata-oscar" class="schermata" hidden>
+  <header class="intestazione">
+    <div>
+      <p class="eyebrow">Fine stagione</p>
+      <h2 id="titolo-oscar">Oscar</h2>
+    </div>
+    <button id="btn-oscar-annulla" class="btn-secondario">← Annulla</button>
+  </header>
+  <main id="contenuto-oscar"></main>
+</section>
+
+<!-- SCHERMATA MERCATO -->
+<section id="schermata-proposte" class="schermata" hidden>
+  <header class="intestazione">
+    <div>
+      <p class="eyebrow">Mercato tra squadre</p>
+      <h2>Mercato</h2>
+    </div>
+    <button id="btn-proposte-torna" class="btn-secondario">← Torna alla mia squadra</button>
+  </header>
+  <nav class="tab-nav">
+    <button class="mtab-btn attivo" data-mtab="sfoglia">Proposte</button>
+    <button class="mtab-btn" data-mtab="offerte">Offerte</button>
+    <button class="mtab-btn" data-mtab="completate">Trattative completate</button>
+  </nav>
+  <main id="contenuto-proposte"></main>
+</section>
+
+<script>
+  // Se il sito non parte per un errore nei file (es. firebase-config.js scritto male),
+  // mostralo scritto in pagina invece di restare muto — così si vede subito cosa non va.
+  function mostraErroreInPagina(testo) {
+    var barra = document.getElementById('barra-errore');
+    if (!barra) {
+      barra = document.createElement('div');
+      barra.id = 'barra-errore';
+      barra.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#7a1f22;color:#fff;padding:10px 14px;font-size:12px;font-family:system-ui,sans-serif;line-height:1.4;max-height:40vh;overflow:auto';
+      barra.onclick = function() { barra.remove(); };
+      document.body.appendChild(barra);
+    }
+    barra.textContent = '⚠ ' + testo + '  (tocca per chiudere)';
+  }
+  // Se qualcosa va storto — all'avvio o mentre stai usando il sito — lo si vede scritto,
+  // invece di restare a fissare una pagina che non finisce mai di caricare.
+  window.addEventListener('error', function(e) {
+    var testo = (e.message || e) + (e.filename ? (' — ' + String(e.filename).split('/').pop() + ' riga ' + e.lineno) : '');
+    var el = document.getElementById('errore-accesso');
+    if (el) { el.hidden = false; el.textContent = 'Errore: ' + testo; }
+    mostraErroreInPagina(testo);
+  });
+  window.addEventListener('unhandledrejection', function(e) {
+    var m = (e.reason && (e.reason.message || e.reason.code)) || e.reason || 'errore sconosciuto';
+    mostraErroreInPagina('Operazione non riuscita: ' + m);
+  });
+</script>
+<!-- Il numero dopo ?v= cambia a ogni aggiornamento: serve a costringere il browser
+     a scaricare i file nuovi invece di riusare quelli vecchi tenuti in memoria. -->
+<script type="module" src="js/app.js?v=202609091702"></script>
+</body>
+</html>
